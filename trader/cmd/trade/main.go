@@ -1,6 +1,7 @@
-package trade
+package main
 
 import (
+	"github.com/amintasvrp/prosperity/trader/config"
 	"github.com/amintasvrp/prosperity/trader/internal/infra/kafka"
 	"github.com/amintasvrp/prosperity/trader/internal/market/entity"
 	ckafka "github.com/confluentinc/confluent-kafka-go/kafka"
@@ -8,6 +9,7 @@ import (
 )
 
 func main() {
+	env := config.NewConfigEnv()
 	ordersIn := make(chan *entity.Order)
 	ordersOut := make(chan *entity.Order)
 
@@ -16,9 +18,9 @@ func main() {
 
 	msgChan := make(chan *ckafka.Message)
 	configMap := &ckafka.ConfigMap{
-		"bootstrap.servers": "host.docker.internal:9094",
-		"group.id":          "trader",
-		"auto.offset.reset": "earliest",
+		"bootstrap.servers": env.BootstrapServers,
+		"group.id":          env.GroupID,
+		"auto.offset.reset": env.Offset,
 	}
 	producer := kafka.NewProducer(configMap)
 	consumer := kafka.NewConsumer(configMap, []string{"input"})
@@ -26,5 +28,6 @@ func main() {
 
 	go kafka.Consume(msgChan, consumer)
 	go book.Trade()
-	go kafka.Transform(msgChan, ordersIn, producer, ordersOut, wg)
+	go kafka.TransformIn(msgChan, ordersIn, wg)
+	kafka.TransformOut(producer, ordersOut)
 }

@@ -17,15 +17,10 @@ func Consume(msgChan chan *ckafka.Message, consumer *Consumer) {
 	}
 }
 
-func Transform(msgChan chan *ckafka.Message, ordersIn chan *entity.Order, producer *Producer, ordersOut chan *entity.Order, wg *sync.WaitGroup) {
-	TransformIn(msgChan, ordersIn, wg)
-	TransformOut(producer, ordersOut)
-}
-
 func TransformIn(msgChan chan *ckafka.Message, ordersIn chan *entity.Order, wg *sync.WaitGroup) {
 	for msg := range msgChan {
 		wg.Add(1)
-		fmt.Printf(string(msg.Value))
+		fmt.Println(string(msg.Value))
 		tradeInput := dto.TradeInput{}
 		err := json.Unmarshal(msg.Value, &tradeInput)
 		if err != nil {
@@ -40,6 +35,7 @@ func TransformOut(producer *Producer, ordersOut chan *entity.Order) {
 	for res := range ordersOut {
 		output := transformer.TransformOutput(res)
 		outputJson, err := json.MarshalIndent(output, "", " ")
+		fmt.Println(string(outputJson))
 		if err != nil {
 			fmt.Println(err)
 		}
