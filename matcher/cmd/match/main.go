@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/amintasvrp/prosperity/trader/config"
-	"github.com/amintasvrp/prosperity/trader/internal/infra/kafka"
-	"github.com/amintasvrp/prosperity/trader/internal/market/entity"
+	"github.com/amintasvrp/prosperity/matcher/config"
+	"github.com/amintasvrp/prosperity/matcher/internal/infra/kafka"
+	"github.com/amintasvrp/prosperity/matcher/internal/market/entity"
 	ckafka "github.com/confluentinc/confluent-kafka-go/kafka"
 	"sync"
 )

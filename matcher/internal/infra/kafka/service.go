@@ -3,9 +3,9 @@ package kafka
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/amintasvrp/prosperity/trader/internal/market/dto"
-	"github.com/amintasvrp/prosperity/trader/internal/market/entity"
-	"github.com/amintasvrp/prosperity/trader/internal/market/transformer"
+	"github.com/amintasvrp/prosperity/matcher/internal/market/dto"
+	"github.com/amintasvrp/prosperity/matcher/internal/market/entity"
+	"github.com/amintasvrp/prosperity/matcher/internal/market/transformer"
 	ckafka "github.com/confluentinc/confluent-kafka-go/kafka"
 	"sync"
 )

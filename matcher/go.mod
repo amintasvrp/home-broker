@@ -1,4 +1,4 @@
-module github.com/amintasvrp/prosperity/trader
+module github.com/amintasvrp/prosperity/matcher
 
 go 1.22.4
 
