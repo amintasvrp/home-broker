@@ -1,21 +1,29 @@
 services:
   trader:
+    container_name: container-trader
+    image: prosperity/trader
     build: .
     ports:
       - "3000:3000"
     volumes:
       - .:/home/node/app
 
-  db:
-    image: bitnami/mongodb:latest
-    volumes:
-      - mongodb_data:bitnami/mongodb
+  mongodb:
+    image: mongo
+    container_name: container-mongodb
+    ports:
+      - "27017:27017"
+    restart: always
     environment:
-      MONGODB_ROOT_PASSWORD: root
-      MONGODB_REPLICA_SET_MODE: primary
-      MONGODB_REPLICA_SET_KEY: 123456
-      MONGODB_DATABASE: trader
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - ./mongodb_data:/mongodb_data
 
-  volumes:
-    mongodb_data:
-      driver: local
+volumes:
+  mongodb_data:
+    driver: local
+
+networks:
+  prosperity-network:
+    external: true
