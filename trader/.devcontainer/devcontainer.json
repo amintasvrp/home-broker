@@ -1,0 +1,17 @@
+{
+  "name": "trader",
+  "dockerComposeFile": [
+    "../docker-compose.yaml",
+    "docker-compose.yml"
+  ],
+  "service": "trader",
+  "workspaceFolder": "/home/node/app",
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2.4.4": {},
+    "ghcr.io/devcontainers-contrib/features/zsh-plugins:0.0.4": {
+      "plugins": "git git-flow F-Sy-H zsh-autosuggestions zsh-completions",
+      "omzPlugins": "https://github.com/z-shell/F-Sy-H https://github.com/zsh-users/zsh-autosuggestions https://github.com/zsh-users/zsh-completions"
+    },
+    "ghcr.io/stuartleeks/dev-container-features/shell-history:0.0.3": {}
+  }
+}

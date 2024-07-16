@@ -1,0 +1,21 @@
+services:
+  trader:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/home/node/app
+
+  db:
+    image: bitnami/mongodb:latest
+    volumes:
+      - mongodb_data:bitnami/mongodb
+    environment:
+      MONGODB_ROOT_PASSWORD: root
+      MONGODB_REPLICA_SET_MODE: primary
+      MONGODB_REPLICA_SET_KEY: 123456
+      MONGODB_DATABASE: trader
+
+  volumes:
+    mongodb_data:
+      driver: local
